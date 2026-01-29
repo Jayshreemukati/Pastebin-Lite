@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Paste</title>
+</head>
+<body>
+  <pre id="paste"></pre>
+
+  <script>
+    const id = window.location.pathname.split("/").pop();
+
+    fetch(`/api/pastes/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("paste").innerText = data.content || "Expired / Not found";
+      });
+  </script>
+</body>
+</html>

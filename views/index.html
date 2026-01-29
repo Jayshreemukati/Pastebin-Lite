@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pastebin Lite</title>
+</head>
+<body>
+  <h2>Create Paste</h2>
+
+  <textarea id="content" rows="6" cols="50"></textarea><br><br>
+  <button onclick="createPaste()">Create</button>
+
+  <p id="result"></p>
+
+  <script>
+    async function createPaste() {
+      const content = document.getElementById("content").value;
+
+      const res = await fetch("/api/pastes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content })
+      });
+
+      const data = await res.json();
+      document.getElementById("result").innerText =
+        data.url || JSON.stringify(data);
+    }
+  </script>
+</body>
+</html>
